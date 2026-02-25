@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- 头部导航 -->
+    <div id="header-placeholder"></div>
+
+    <div id="content-container">
+        <!-- 左侧 - 作者信息 -->
+        <aside id="author-info">
+            <h3>作者信息</h3>
+            <p>这里可以展示作者的个人简介，联系方式等。</p>
+        </aside>
+
+        <!-- 右侧 - 博客内容 -->
+        <main id="blog-main">
+            <h2>最新博客</h2>
+
+            <!-- 搜索框 -->
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="搜索博客...">
+            </div>
+
+            <!-- 博客列表 -->
+            <div id="blog-list"></div>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>  <!-- 使用CDN引入marked库 -->
+    <script src="js/scripts.js"></script>
+    <script src="js/blog-loader.js"></script>
+</body>
+</html>

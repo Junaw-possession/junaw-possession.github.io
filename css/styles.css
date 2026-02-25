@@ -1,0 +1,68 @@
+/* 这里是一些基本的样式 */
+/* styles.css */
+
+/* 基本布局 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#content-container {
+    display: flex; /* 使用 flexbox 布局 */
+    justify-content: space-between;
+    padding: 20px;
+}
+
+#author-info {
+    width: 25%; /* 左侧作者信息占 25% 宽度 */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+}
+
+#blog-main {
+    width: 70%; /* 右侧博客内容占 70% 宽度 */
+    padding: 20px;
+}
+
+#search-container {
+    margin-bottom: 20px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* 博客列表 */
+#blog-list article {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#blog-list h3 {
+    margin-top: 0;
+}
+
+#blog-list p {
+    font-size: 14px;
+}
+
+/* “查看更多”按钮 */
+.view-more {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.view-more:hover {
+    background-color: #0056b3;
+}
