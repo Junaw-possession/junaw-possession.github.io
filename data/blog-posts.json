@@ -1,8 +1,8 @@
 [
     {
         "id": "1",
-        "title": "博客文章 1",
-        "description": "这是我的第一篇博客文章的简介。",
+        "title": "利用GitHub Pages搭建个人博客",
+        "description": "GitHub,Page,个人网站",
         "url": "blog1.md"
     },
     {

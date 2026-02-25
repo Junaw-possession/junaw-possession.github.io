@@ -2,8 +2,12 @@
 
 window.loadBlogs = async function (query = '') {
     const listEl = document.getElementById('blog-list');
+    const navEl = document.getElementById('blog-nav');
     if (!listEl) return;
     listEl.innerHTML = '正在加载...';
+    if (navEl) {
+        navEl.innerHTML = '加载中...';
+    }
 
     try {
         const res = await fetch('data/blog-posts.json', { cache: 'no-store' });
@@ -58,6 +62,36 @@ window.loadBlogs = async function (query = '') {
                 html = md;
             }
 
+            // 生成目录
+            let tocHtml = '';
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const headings = tempDiv.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            
+            if (headings.length > 1) { // 至少有两个标题才生成目录
+                tocHtml = '<div class="blog-toc"><h4>目录</h4><ul>';
+                
+                headings.forEach((heading, index) => {
+                    // 为标题生成唯一ID
+                    const id = heading.id || `heading-${index}`;
+                    heading.id = id;
+                    
+                    // 获取标题级别
+                    const level = parseInt(heading.tagName.charAt(1));
+                    
+                    // 根据级别添加缩进
+                    const indent = (level - 1) * 10;
+                    
+                    // 添加到目录
+                    tocHtml += `<li style="margin-left: ${indent}px;"><a href="#${id}">${heading.textContent.trim()}</a></li>`;
+                });
+                
+                tocHtml += '</ul></div>';
+            }
+
+            // 将目录添加到HTML开头
+            html = tocHtml + html;
+
             // 提取纯文本用于搜索和摘要
             const temp = document.createElement('div');
             temp.innerHTML = html;
@@ -73,6 +107,9 @@ window.loadBlogs = async function (query = '') {
             // 构建摘要（最多 300 字符），若没有 md 使用 description
             const sourceText = text || (p.description || '');
             const excerptText = sourceText.length > 300 ? sourceText.slice(0, 300).trim() + '…' : sourceText;
+
+            // 创建摘要HTML
+            const excerptHtml = `<p>${excerptText}</p>`;
 
             // DOM
             const article = document.createElement('article');
@@ -91,14 +128,78 @@ window.loadBlogs = async function (query = '') {
 
             const contentWrap = document.createElement('div');
             contentWrap.className = 'post-content';
-            contentWrap.innerHTML = html;
+            
+            // 创建摘要容器
+            const excerptWrap = document.createElement('div');
+            excerptWrap.className = 'post-excerpt';
+            excerptWrap.innerHTML = excerptHtml;
+            
+            // 创建完整内容容器
+            const fullContentWrap = document.createElement('div');
+            fullContentWrap.className = 'post-full-content';
+            fullContentWrap.innerHTML = html;
+            fullContentWrap.style.display = 'none'; // 默认隐藏
+            
+            // 创建展开/折叠按钮
+            const toggleBtn = document.createElement('button');
+            toggleBtn.className = 'post-toggle-btn';
+            toggleBtn.textContent = '更多内容';
+            toggleBtn.onclick = function() {
+                if (fullContentWrap.style.display === 'none') {
+                    // 展开
+                    excerptWrap.style.display = 'none';
+                    fullContentWrap.style.display = 'block';
+                    toggleBtn.textContent = '折叠';
+                } else {
+                    // 折叠
+                    fullContentWrap.style.display = 'none';
+                    excerptWrap.style.display = 'block';
+                    toggleBtn.textContent = '更多内容';
+                }
+            };
+            
+            // 组装内容
+            contentWrap.appendChild(excerptWrap);
+            contentWrap.appendChild(fullContentWrap);
+            contentWrap.appendChild(toggleBtn);
+            
             article.appendChild(contentWrap);
 
+            article.id = `post-${p.id || i}`; // 添加唯一ID
             listEl.appendChild(article);
+        }
+
+        // 生成左侧目录
+        if (navEl) {
+            try {
+                let navHtml = '<ul>';
+                for (let i = 0; i < posts.length; i++) {
+                    const p = posts[i];
+                    if (!p) continue;
+                    
+                    // 搜索过滤
+                    const q = (query || '').trim().toLowerCase();
+                    if (q) {
+                        const title = (p.title || '').toLowerCase();
+                        if (!title.includes(q)) continue;
+                    }
+                    
+                    const postId = `post-${p.id || i}`;
+                    navHtml += `<li><a href="#${postId}">${p.title || `文章 ${i + 1}`}</a></li>`;
+                }
+                navHtml += '</ul>';
+                navEl.innerHTML = navHtml;
+            } catch (e) {
+                console.error('生成目录失败:', e);
+                navEl.innerHTML = '目录加载失败';
+            }
         }
     } catch (e) {
         console.error('加载博客文章失败:', e);
         listEl.innerHTML = '加载失败';
+        if (navEl) {
+            navEl.innerHTML = '目录加载失败';
+        }
     }
 };
 

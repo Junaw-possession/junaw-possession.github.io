@@ -8,17 +8,135 @@ body {
     padding: 0;
 }
 
+/* 头部样式 */
+header {
+    background-color: #000000;
+    padding: 10px 20px;
+    border-bottom: 1px solid #333333;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #00d4ff;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+    border-color: #0099cc;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+header nav li {
+    margin: 0;
+}
+
+header nav a {
+    color: #00d4ff;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+header nav a:hover {
+    color: #0099cc;
+    text-decoration: underline;
+}
+
+/* 页脚样式 */
+footer {
+    background-color: #e8f5e8;
+    padding: 20px;
+    border-top: 1px solid #c8e6c9;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+footer p {
+    margin: 0;
+    color: #9c27b0;
+    font-size: 14px;
+    text-align: center;
+}
+
 #content-container {
     display: flex; /* 使用 flexbox 布局 */
     justify-content: space-between;
     padding: 20px;
+    min-height: 100vh;
 }
 
-#author-info {
-    width: 25%; /* 左侧作者信息占 25% 宽度 */
+#blog-sidebar {
+    width: 25%; /* 左侧博客目录占 25% 宽度 */
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #f8f9fa;
     border-radius: 5px;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+#blog-sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+}
+
+#blog-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#blog-nav li {
+    margin-bottom: 10px;
+}
+
+#blog-nav a {
+    color: #495057;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+#blog-nav a:hover {
+    color: #007bff;
+    background-color: #e9ecef;
 }
 
 #blog-main {
@@ -52,7 +170,7 @@ body {
     font-size: 14px;
 }
 
-/* “查看更多”按钮 */
+/* "查看更多"按钮 */
 .view-more {
     margin-top: 10px;
     display: inline-block;
@@ -65,4 +183,108 @@ body {
 
 .view-more:hover {
     background-color: #0056b3;
+}
+
+/* 博客摘要样式 */
+.post-excerpt {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* 展开/折叠按钮样式 */
+.post-toggle-btn {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.post-toggle-btn:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+/* 完整内容样式 */
+.post-full-content {
+    margin-top: 15px;
+    line-height: 1.6;
+}
+
+/* 确保markdown内容正确显示 */
+.post-full-content h1,
+.post-full-content h2,
+.post-full-content h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.post-full-content p {
+    margin-bottom: 15px;
+}
+
+.post-full-content ul,
+.post-full-content ol {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.post-full-content li {
+    margin-bottom: 5px;
+}
+
+.post-full-content a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.post-full-content a:hover {
+    text-decoration: underline;
+}
+
+/* 目录样式 */
+.blog-toc {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 25px;
+}
+
+.blog-toc h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #495057;
+    font-size: 16px;
+}
+
+.blog-toc ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.blog-toc li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.blog-toc a {
+    color: #495057;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.blog-toc a:hover {
+    color: #007bff;
+    text-decoration: underline;
 }
