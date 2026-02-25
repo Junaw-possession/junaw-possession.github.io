@@ -10,9 +10,9 @@ body {
 
 /* 头部样式 */
 header {
-    background-color: #000000;
+    background-color: #4a90e2;
     padding: 10px 20px;
-    border-bottom: 1px solid #333333;
+    border-bottom: 1px solid #357abd;
 }
 
 .header-content {
@@ -34,13 +34,13 @@ header {
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #00d4ff;
+    border: 2px solid #ffffff;
     transition: transform 0.3s, border-color 0.3s;
 }
 
 .logo-img:hover {
     transform: scale(1.05);
-    border-color: #0099cc;
+    border-color: #e0e0e0;
 }
 
 header nav ul {
@@ -56,7 +56,7 @@ header nav li {
 }
 
 header nav a {
-    color: #00d4ff;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
     font-size: 16px;
@@ -64,7 +64,7 @@ header nav a {
 }
 
 header nav a:hover {
-    color: #0099cc;
+    color: #e0e0e0;
     text-decoration: underline;
 }
 
