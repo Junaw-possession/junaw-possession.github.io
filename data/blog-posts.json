@@ -7,8 +7,8 @@
     },
     {
         "id": "2",
-        "title": "博客文章 2",
-        "description": "这是我的第二篇博客文章的简介。",
+        "title": "VSCode配置虚拟环境",
+        "description": "VScode,虚拟环境,Python",
         "url": "blog2.md"
     }
 ]
