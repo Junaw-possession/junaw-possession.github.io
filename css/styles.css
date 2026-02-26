@@ -12,6 +12,16 @@ body {
     margin: 0;
     /* 重置默认内边距 */
     padding: 0;
+    /* 添加背景图片 */
+    background-image: url('../static/background.jpg');
+    /* 背景图片覆盖整个页面 */
+    background-size: cover;
+    /* 背景图片居中显示 */
+    background-position: center;
+    /* 背景图片不重复 */
+    background-repeat: no-repeat;
+    /* 背景图片固定，不随滚动移动 */
+    background-attachment: fixed;
 }
 
 /**
@@ -19,12 +29,14 @@ body {
  * 包含网站标题、Logo和导航菜单
  */
 header {
-    /* 设置头部背景色为蓝色 */
-    background-color: #4a90e2;
+    /* 设置头部背景色为半透明蓝色 */
+    background-color: rgba(232, 245, 232, 0.9);
     /* 设置头部内边距 */
     padding: 10px 20px;
     /* 添加底部边框 */
     border-bottom: 1px solid #357abd;
+    /* 阴影效果 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
@@ -118,14 +130,14 @@ header nav a:hover {
  * 包含网站版权信息和底部链接
  */
 footer {
-    /* 设置页脚背景色为浅绿色 */
-    background-color: #e8f5e8;
+    /* 设置页脚背景色为半透明浅绿色 */
+    background-color: rgba(232, 245, 232, 0.9);
     /* 设置内边距 */
     padding: 20px;
     /* 添加顶部边框 */
     border-top: 1px solid #c8e6c9;
-    /* 设置顶部外边距 */
-    margin-top: 40px;
+    /* 消除顶部外边距，与内容无缝连接 */
+    margin-top: 0;
     /* 使用flex布局 */
     display: flex;
     /* 水平居中对齐 */
@@ -136,6 +148,8 @@ footer {
     width: 100%;
     /* 盒模型设置为border-box */
     box-sizing: border-box;
+    /* 阴影效果 */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 footer p {
@@ -156,12 +170,26 @@ footer p {
 #content-container {
     /* 使用flexbox布局 */
     display: flex;
-    /* 元素间距均匀分布 */
-    justify-content: space-between;
-    /* 设置内边距 */
-    padding: 20px;
-    /* 设置最小高度为视口高度 */
-    min-height: 100vh;
+    /* 元素紧密排列，消除间隙 */
+    justify-content: flex-start;
+    /* 消除内边距，与头部无缝连接 */
+    padding: 0;
+    /* 设置高度为视口高度减去头部高度 */
+    min-height: calc(100vh - 60px);
+    /* 确保内容区域与头部底部无间隙 */
+    margin: 0;
+    /* 确保内容区域占据剩余空间 */
+    flex: 1;
+}
+
+/* 为内容区域添加半透明背景，确保文字清晰可读 */
+#blog-main, #blog-sidebar {
+    /* 白色背景，80%透明度 */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* 阴影效果 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* 确保内容区域延伸到页面底部 */
+    min-height: 100%;
 }
 
 /**
@@ -173,20 +201,24 @@ footer p {
     width: 25%;
     /* 设置内边距 */
     padding: 20px;
-    /* 设置背景色为浅灰色 */
-    background-color: #f8f9fa;
-    /* 设置圆角边框 */
-    border-radius: 5px;
-    /* 粘性定位 */
+    /* 粘性定位，固定在左侧 */
     position: sticky;
-    /* 距离顶部20px */
-    top: 20px;
+    /* 距离顶部0，与头部无缝连接 */
+    top: 0;
     /* 顶部对齐 */
     align-self: flex-start;
-    /* 最大高度为视口高度减去40px */
-    max-height: calc(100vh - 40px);
+    /* 最大高度为视口高度 */
+    max-height: 100vh;
     /* 垂直滚动 */
     overflow-y: auto;
+    /* 确保侧边栏与头部无缝连接 */
+    border-top: none;
+    /* 固定定位，不随内容滚动 */
+    height: 100vh;
+    /* 盒模型设置为border-box，确保内边距不影响高度计算 */
+    box-sizing: border-box;
+    /* 消除右侧间隙 */
+    margin-right: 0;
 }
 
 #blog-sidebar h3 {
@@ -246,10 +278,14 @@ footer p {
  * 包含博客文章列表和搜索功能
  */
 #blog-main {
-    /* 宽度占70% */
-    width: 70%;
+    /* 宽度占75%，与侧边栏宽度之和为100% */
+    width: 75%;
     /* 设置内边距 */
     padding: 20px;
+    /* 确保主内容区域与头部无缝连接 */
+    border-top: none;
+    /* 消除左侧间隙 */
+    margin-left: 0;
 }
 
 /**
