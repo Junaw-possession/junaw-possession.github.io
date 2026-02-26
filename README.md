@@ -1,6 +1,6 @@
 # 个人博客项目
 
-这是一个使用GitHub Pages搭建的个人博客项目，支持Markdown解析、内容折叠、搜索功能等特性。
+这是一个使用GitHub Pages和Netlify搭建的个人博客项目，支持Markdown解析、内容折叠、搜索功能和密码保护等特性。
 
 ## 项目结构
 
@@ -11,7 +11,10 @@ myblog/
 ├── data/
 │   ├── blog-posts.json     # 博客文章配置文件
 │   └── blogs/
-│       └── blog1.md        # Markdown格式的博客文章
+│       ├── blog1.md        # Markdown格式的博客文章
+│       └── blog2.md        # Markdown格式的博客文章
+├── functions/
+│   └── verify-password.js  # Netlify Function，用于密码验证
 ├── js/
 │   ├── blog-loader.js      # 博客加载和解析逻辑
 │   ├── markdown.js         # 空文件（已使用CDN替代）
@@ -19,8 +22,9 @@ myblog/
 ├── partials/
 │   ├── footer.html         # 页脚模板
 │   └── header.html         # 头部模板
-├── about.html              # 关于页面
+├── about.html              # 关于页面（带密码保护）
 ├── index.html              # 首页
+├── netlify.toml            # Netlify配置文件
 └── README.md               # 项目说明文件
 ```
 
@@ -28,7 +32,8 @@ myblog/
 
 ### 根目录文件
 - **index.html**：博客首页，包含布局结构和主要内容
-- **about.html**：关于页面（当前为空）
+- **about.html**：关于页面，包含个人信息和带密码保护的证件照
+- **netlify.toml**：Netlify配置文件，指定函数目录
 - **README.md**：项目说明文件
 
 ### CSS目录
@@ -37,6 +42,10 @@ myblog/
 ### Data目录
 - **blog-posts.json**：博客文章配置文件，包含文章标题、描述和文件路径
 - **blogs/blog1.md**：Markdown格式的博客文章内容
+- **blogs/blog2.md**：Markdown格式的博客文章内容
+
+### Functions目录
+- **verify-password.js**：Netlify Function，用于密码验证，保护敏感内容
 
 ### JS目录
 - **blog-loader.js**：负责加载博客文章、解析Markdown、生成HTML并添加到页面
@@ -52,8 +61,11 @@ myblog/
 1. **Markdown解析**：使用marked库解析Markdown格式的博客文章
 2. **内容折叠**：博客文章默认显示摘要，点击"更多内容"按钮展开完整内容
 3. **搜索功能**：支持按标题和内容搜索博客文章
-4. **响应式布局**：左侧作者信息固定，右侧博客内容可滚动
+4. **响应式布局**：适配不同屏幕尺寸的显示效果
 5. **GitHub Pages部署**：通过GitHub Pages自动部署网站
+6. **密码保护**：使用Netlify Functions实现的密码验证，保护敏感内容（如证件照）
+7. **阿里云盘集成**：安全访问存储在阿里云盘的证件照
+
 
 ## 如何使用
 
@@ -83,19 +95,39 @@ myblog/
 
 编辑 `css/styles.css` 文件来自定义博客的外观。
 
-### 3. 部署到GitHub Pages
+### 3. 部署到GitHub Pages和Netlify
 
+#### GitHub Pages部署
 1. 确保代码已提交到GitHub仓库
 2. 在GitHub仓库的Settings页面中启用GitHub Pages
 3. 选择 `main` 分支和根目录作为部署源
 4. 等待几分钟，GitHub会自动部署你的博客
 
+#### Netlify部署（用于密码保护功能）
+1. 访问[Netlify官网](https://www.netlify.com/)注册免费账户
+2. 连接你的GitHub仓库到Netlify
+3. 配置部署设置：
+   - 构建命令：留空（静态网站）
+   - 发布目录：留空（根目录）
+4. 设置环境变量：
+   - 进入Site settings > Build & deploy > Environment variables
+   - 添加变量：`CORRECT_PASSWORD` = `1202`（或你想要的密码）
+5. 等待Netlify自动部署完成
+
+#### 密码保护功能说明
+- 密码存储在Netlify的环境变量中，不会暴露在代码中
+- 验证逻辑通过Netlify Functions实现，确保安全性
+- 每次访问证件照都需要重新输入密码验证
+
+
 ## 技术栈
 
 - **前端**：HTML5, CSS3, JavaScript
 - **Markdown解析**：marked.js（通过CDN引入）
-- **部署**：GitHub Pages
+- **后端**：Netlify Functions（用于密码验证）
+- **部署**：GitHub Pages + Netlify
 - **版本控制**：Git
+- **云存储**：阿里云盘（用于存储图片和视频）
 
 ## 浏览器兼容性
 
@@ -112,13 +144,17 @@ MIT License
 | 文件路径 | 使用情况 | 作用 |
 |---------|---------|------|
 | `index.html` | ✅ 已使用 | 博客首页，包含布局结构和主要内容 |
+| `about.html` | ✅ 已使用 | 关于页面，包含个人信息和带密码保护的证件照 |
 | `css/styles.css` | ✅ 已使用 | 包含所有样式定义，如布局、博客列表、按钮样式等 |
 | `data/blog-posts.json` | ✅ 已使用 | 博客文章配置文件，包含文章标题、描述和文件路径 |
 | `data/blogs/blog1.md` | ✅ 已使用 | Markdown格式的博客文章内容 |
+| `data/blogs/blog2.md` | ✅ 已使用 | Markdown格式的博客文章内容 |
+| `functions/verify-password.js` | ✅ 已使用 | Netlify Function，用于密码验证 |
 | `js/blog-loader.js` | ✅ 已使用 | 负责加载博客文章、解析Markdown、生成HTML并添加到页面 |
 | `js/scripts.js` | ✅ 已使用 | 包含搜索功能和模板加载逻辑 |
 | `partials/header.html` | ✅ 已使用 | 头部导航模板，包含网站图标和导航链接 |
 | `partials/footer.html` | ✅ 已使用 | 页脚模板，包含版权信息 |
+| `netlify.toml` | ✅ 已使用 | Netlify配置文件 |
 | `README.md` | ✅ 已使用 | 项目说明文件 |
 | `logo.ico` | ✅ 已使用 | 网站图标 |
 
@@ -126,13 +162,12 @@ MIT License
 
 | 文件路径 | 使用情况 | 原因 | 建议 |
 |---------|---------|------|------|
-| `about.html` | ❌ 未使用 | 当前为空文件 | 完善内容，添加个人简介、联系方式等 |
 | `js/markdown.js` | ❌ 未使用 | 空文件，已使用CDN替代 | 移除或添加本地Markdown解析库 |
 
 ## 后续发展建议
 
 ### 内容扩展
-1. **完善about.html页面**：添加个人简介、技能、经历等信息
+1. **完善about.html页面**：已添加个人信息和带密码保护的证件照
 2. **添加更多博客文章**：在`data/blogs/`目录下创建新的Markdown文件
 3. **丰富博客内容**：添加图片、代码示例、表格等多种内容形式
 
@@ -176,5 +211,7 @@ MIT License
 1. **避免使用内联脚本**：尽量使用外部JavaScript文件
 2. **验证用户输入**：如果添加评论等用户输入功能，确保验证输入
 3. **使用HTTPS**：确保网站使用安全的HTTPS协议
+4. **密码安全**：使用Netlify环境变量存储密码，避免硬编码在前端代码中
+5. **API安全**：确保后端API（如密码验证）有适当的安全措施
 
 通过以上建议，你可以逐步完善和扩展这个博客项目，使其成为一个功能完整、用户友好的个人博客网站。
