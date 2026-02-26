@@ -1,290 +1,552 @@
-/* 这里是一些基本的样式 */
-/* styles.css */
+/**
+ * styles.css
+ * 网站样式表文件
+ * 包含网站的基本布局、组件样式和响应式设计
+ */
 
-/* 基本布局 */
+/* 基本布局样式 */
 body {
+    /* 设置全局字体为 Arial 或 sans-serif 系列 */
     font-family: Arial, sans-serif;
+    /* 重置默认边距 */
     margin: 0;
+    /* 重置默认内边距 */
     padding: 0;
 }
 
-/* 头部样式 */
+/**
+ * 头部样式
+ * 包含网站标题、Logo和导航菜单
+ */
 header {
+    /* 设置头部背景色为蓝色 */
     background-color: #4a90e2;
+    /* 设置头部内边距 */
     padding: 10px 20px;
+    /* 添加底部边框 */
     border-bottom: 1px solid #357abd;
 }
 
 .header-content {
+    /* 使用flex布局 */
     display: flex;
+    /* 垂直居中对齐 */
     align-items: center;
+    /* 设置元素间距 */
     gap: 25px;
+    /* 设置最大宽度 */
     max-width: 1200px;
+    /* 水平居中 */
     margin: 0 auto;
+    /* 宽度100% */
     width: 100%;
 }
 
 .site-logo {
+    /* 使用flex布局 */
     display: flex;
+    /* 垂直居中对齐 */
     align-items: center;
 }
 
 .logo-img {
+    /* 设置Logo宽度 */
     width: 45px;
+    /* 设置Logo高度 */
     height: 45px;
+    /* 设置圆形边框 */
     border-radius: 50%;
+    /* 图片填充模式 */
     object-fit: cover;
+    /* 添加白色边框 */
     border: 2px solid #ffffff;
+    /* 添加过渡动画效果 */
     transition: transform 0.3s, border-color 0.3s;
 }
 
+/* Logo鼠标悬停效果 */
 .logo-img:hover {
+    /* 缩放效果 */
     transform: scale(1.05);
+    /* 边框颜色变化 */
     border-color: #e0e0e0;
 }
 
+/* 导航菜单样式 */
 header nav ul {
+    /* 移除默认列表样式 */
     list-style: none;
+    /* 重置内边距 */
     padding: 0;
+    /* 重置边距 */
     margin: 0;
+    /* 使用flex布局 */
     display: flex;
+    /* 设置菜单项间距 */
     gap: 20px;
 }
 
 header nav li {
+    /* 重置边距 */
     margin: 0;
 }
 
+/* 导航链接样式 */
 header nav a {
+    /* 文字颜色为白色 */
     color: #ffffff;
+    /* 移除下划线 */
     text-decoration: none;
+    /* 添加颜色过渡效果 */
     transition: color 0.3s;
+    /* 设置字体大小 */
     font-size: 16px;
+    /* 设置字体粗细 */
     font-weight: 500;
 }
 
+/* 导航链接鼠标悬停效果 */
 header nav a:hover {
+    /* 文字颜色变为浅灰色 */
     color: #e0e0e0;
+    /* 添加下划线 */
     text-decoration: underline;
 }
 
-/* 页脚样式 */
+/**
+ * 页脚样式
+ * 包含网站版权信息和底部链接
+ */
 footer {
+    /* 设置页脚背景色为浅绿色 */
     background-color: #e8f5e8;
+    /* 设置内边距 */
     padding: 20px;
+    /* 添加顶部边框 */
     border-top: 1px solid #c8e6c9;
+    /* 设置顶部外边距 */
     margin-top: 40px;
+    /* 使用flex布局 */
     display: flex;
+    /* 水平居中对齐 */
     justify-content: center;
+    /* 垂直居中对齐 */
     align-items: center;
+    /* 宽度100% */
     width: 100%;
+    /* 盒模型设置为border-box */
     box-sizing: border-box;
 }
 
 footer p {
+    /* 重置边距 */
     margin: 0;
+    /* 设置文字颜色为紫色 */
     color: #9c27b0;
+    /* 设置字体大小 */
     font-size: 14px;
+    /* 文字居中对齐 */
     text-align: center;
 }
 
+/**
+ * 内容容器样式
+ * 包含博客侧边栏和主内容区域
+ */
 #content-container {
-    display: flex; /* 使用 flexbox 布局 */
+    /* 使用flexbox布局 */
+    display: flex;
+    /* 元素间距均匀分布 */
     justify-content: space-between;
+    /* 设置内边距 */
     padding: 20px;
+    /* 设置最小高度为视口高度 */
     min-height: 100vh;
 }
 
+/**
+ * 博客侧边栏样式
+ * 包含博客目录和导航链接
+ */
 #blog-sidebar {
-    width: 25%; /* 左侧博客目录占 25% 宽度 */
+    /* 宽度占25% */
+    width: 25%;
+    /* 设置内边距 */
     padding: 20px;
+    /* 设置背景色为浅灰色 */
     background-color: #f8f9fa;
+    /* 设置圆角边框 */
     border-radius: 5px;
+    /* 粘性定位 */
     position: sticky;
+    /* 距离顶部20px */
     top: 20px;
+    /* 顶部对齐 */
     align-self: flex-start;
+    /* 最大高度为视口高度减去40px */
     max-height: calc(100vh - 40px);
+    /* 垂直滚动 */
     overflow-y: auto;
 }
 
 #blog-sidebar h3 {
+    /* 移除顶部边距 */
     margin-top: 0;
+    /* 设置底部边距 */
     margin-bottom: 15px;
+    /* 设置文字颜色 */
     color: #333;
+    /* 设置字体大小 */
     font-size: 18px;
 }
 
+/* 博客导航样式 */
 #blog-nav ul {
+    /* 移除默认列表样式 */
     list-style: none;
+    /* 重置内边距 */
     padding: 0;
+    /* 重置边距 */
     margin: 0;
 }
 
 #blog-nav li {
+    /* 设置底部边距 */
     margin-bottom: 10px;
 }
 
+/* 博客导航链接样式 */
 #blog-nav a {
+    /* 设置文字颜色 */
     color: #495057;
+    /* 移除下划线 */
     text-decoration: none;
+    /* 添加颜色过渡效果 */
     transition: color 0.3s;
+    /* 块级元素显示 */
     display: block;
+    /* 设置内边距 */
     padding: 8px 12px;
+    /* 设置圆角边框 */
     border-radius: 4px;
+    /* 添加所有属性过渡效果 */
     transition: all 0.3s;
 }
 
+/* 博客导航链接鼠标悬停效果 */
 #blog-nav a:hover {
+    /* 文字颜色变为蓝色 */
     color: #007bff;
+    /* 背景色变为浅灰色 */
     background-color: #e9ecef;
 }
 
+/**
+ * 博客主内容区域样式
+ * 包含博客文章列表和搜索功能
+ */
 #blog-main {
-    width: 70%; /* 右侧博客内容占 70% 宽度 */
+    /* 宽度占70% */
+    width: 70%;
+    /* 设置内边距 */
     padding: 20px;
 }
 
+/**
+ * 搜索容器样式
+ * 包含搜索输入框
+ */
 #search-container {
+    /* 设置底部边距 */
     margin-bottom: 20px;
 }
 
+/* 搜索输入框样式 */
 #search-input {
+    /* 宽度100% */
     width: 100%;
+    /* 设置内边距 */
     padding: 10px;
+    /* 设置字体大小 */
     font-size: 16px;
 }
 
-/* 博客列表 */
+/**
+ * 博客列表样式
+ * 包含博客文章卡片和相关元素
+ */
 #blog-list article {
+    /* 设置底部边距 */
     margin-bottom: 20px;
+    /* 设置内边距 */
     padding: 15px;
+    /* 添加边框 */
     border: 1px solid #ddd;
+    /* 设置圆角边框 */
     border-radius: 5px;
 }
 
 #blog-list h3 {
+    /* 移除顶部边距 */
     margin-top: 0;
 }
 
 #blog-list p {
+    /* 设置字体大小 */
     font-size: 14px;
 }
 
-/* "查看更多"按钮 */
+/**
+ * "查看更多"按钮样式
+ * 用于链接到完整博客文章
+ */
 .view-more {
+    /* 设置顶部边距 */
     margin-top: 10px;
+    /* 行内块级元素 */
     display: inline-block;
+    /* 设置内边距 */
     padding: 8px 12px;
+    /* 设置背景色为蓝色 */
     background-color: #007bff;
+    /* 设置文字颜色为白色 */
     color: white;
+    /* 移除下划线 */
     text-decoration: none;
+    /* 设置圆角边框 */
     border-radius: 5px;
 }
 
+/* "查看更多"按钮鼠标悬停效果 */
 .view-more:hover {
+    /* 背景色变为深蓝色 */
     background-color: #0056b3;
 }
 
-/* 博客摘要样式 */
+/**
+ * 博客摘要样式
+ * 显示博客文章的简短预览
+ */
 .post-excerpt {
+    /* 设置底部边距 */
     margin-bottom: 15px;
+    /* 设置行高 */
     line-height: 1.5;
 }
 
-/* 展开/折叠按钮样式 */
+/**
+ * 展开/折叠按钮样式
+ * 用于切换博客文章的展开和折叠状态
+ */
 .post-toggle-btn {
+    /* 设置顶部边距 */
     margin-top: 15px;
+    /* 设置底部边距 */
     margin-bottom: 10px;
+    /* 设置内边距 */
     padding: 8px 16px;
+    /* 设置背景色为浅灰色 */
     background-color: #f8f9fa;
+    /* 设置文字颜色 */
     color: #495057;
+    /* 添加边框 */
     border: 1px solid #dee2e6;
+    /* 设置圆角边框 */
     border-radius: 5px;
+    /* 鼠标指针变为手形 */
     cursor: pointer;
+    /* 设置字体大小 */
     font-size: 14px;
+    /* 添加所有属性过渡效果 */
     transition: all 0.3s;
+    /* 块级元素显示 */
     display: block;
+    /* 水平居中 */
     margin-left: auto;
     margin-right: auto;
+    /* 宽度适应内容 */
     width: fit-content;
 }
 
+/* 展开/折叠按钮鼠标悬停效果 */
 .post-toggle-btn:hover {
+    /* 背景色变为稍深的灰色 */
     background-color: #e9ecef;
+    /* 边框颜色变为稍深的灰色 */
     border-color: #adb5bd;
 }
 
-/* 完整内容样式 */
+/**
+ * 完整内容样式
+ * 显示博客文章的完整内容
+ */
 .post-full-content {
+    /* 设置顶部边距 */
     margin-top: 15px;
+    /* 设置行高 */
     line-height: 1.6;
 }
 
-/* 确保markdown内容正确显示 */
+/**
+ * Markdown内容样式
+ * 确保Markdown转换后的HTML正确显示
+ */
+/* 标题样式 */
 .post-full-content h1,
 .post-full-content h2,
 .post-full-content h3 {
+    /* 设置顶部边距 */
     margin-top: 20px;
+    /* 设置底部边距 */
     margin-bottom: 10px;
 }
 
+/* 段落样式 */
 .post-full-content p {
+    /* 设置底部边距 */
     margin-bottom: 15px;
+    /* 允许长单词换行 */
+    word-wrap: break-word;
+    /* 允许内容超出时换行 */
+    overflow-wrap: break-word;
+    /* 最大宽度100% */
+    max-width: 100%;
 }
 
+/* 列表样式 */
 .post-full-content ul,
 .post-full-content ol {
+    /* 设置底部边距 */
     margin-bottom: 15px;
+    /* 设置左侧内边距 */
     padding-left: 20px;
+    /* 允许长单词换行 */
+    word-wrap: break-word;
+    /* 允许内容超出时换行 */
+    overflow-wrap: break-word;
+    /* 最大宽度100% */
+    max-width: 100%;
 }
 
+/* 列表项样式 */
 .post-full-content li {
+    /* 设置底部边距 */
     margin-bottom: 5px;
+    /* 允许长单词换行 */
+    word-wrap: break-word;
+    /* 允许内容超出时换行 */
+    overflow-wrap: break-word;
 }
 
+/* 链接样式 */
 .post-full-content a {
+    /* 设置文字颜色为蓝色 */
     color: #007bff;
+    /* 移除下划线 */
     text-decoration: none;
+    /* 允许长单词换行 */
+    word-wrap: break-word;
+    /* 允许内容超出时换行 */
+    overflow-wrap: break-word;
 }
 
+/* 链接鼠标悬停效果 */
 .post-full-content a:hover {
+    /* 添加下划线 */
     text-decoration: underline;
 }
 
-/* 目录样式 */
-.blog-toc {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
+/**
+ * 代码块样式优化
+ * 确保代码正确显示并支持换行
+ */
+.post-full-content pre {
+    /* 保留空白字符并允许换行 */
+    white-space: pre-wrap;
+    /* 允许长单词换行 */
+    word-wrap: break-word;
+    /* 水平滚动 */
+    overflow-x: auto;
+    /* 最大宽度100% */
+    max-width: 100%;
+    /* 设置内边距 */
+    padding: 10px;
+    /* 设置圆角边框 */
     border-radius: 5px;
+    /* 设置背景色为浅灰色 */
+    background-color: #f8f9fa;
+    /* 添加边框 */
+    border: 1px solid #dee2e6;
+}
+
+/* 行内代码样式 */
+.post-full-content code {
+    /* 保留空白字符并允许换行 */
+    white-space: pre-wrap;
+    /* 允许长单词换行 */
+    word-wrap: break-word;
+    /* 最大宽度100% */
+    max-width: 100%;
+}
+
+/**
+ * 目录样式
+ * 显示博客文章的目录结构
+ */
+.blog-toc {
+    /* 设置背景色为浅灰色 */
+    background-color: #f8f9fa;
+    /* 添加边框 */
+    border: 1px solid #dee2e6;
+    /* 设置圆角边框 */
+    border-radius: 5px;
+    /* 设置内边距 */
     padding: 15px;
+    /* 设置底部边距 */
     margin-bottom: 25px;
 }
 
 .blog-toc h4 {
+    /* 移除顶部边距 */
     margin-top: 0;
+    /* 设置底部边距 */
     margin-bottom: 10px;
+    /* 设置文字颜色 */
     color: #495057;
+    /* 设置字体大小 */
     font-size: 16px;
 }
 
 .blog-toc ul {
+    /* 移除默认列表样式 */
     list-style: none;
+    /* 重置左侧内边距 */
     padding-left: 0;
+    /* 重置边距 */
     margin: 0;
 }
 
 .blog-toc li {
+    /* 设置底部边距 */
     margin-bottom: 8px;
+    /* 设置行高 */
     line-height: 1.4;
 }
 
+/* 目录链接样式 */
 .blog-toc a {
+    /* 设置文字颜色 */
     color: #495057;
+    /* 移除下划线 */
     text-decoration: none;
+    /* 添加颜色过渡效果 */
     transition: color 0.3s;
 }
 
+/* 目录链接鼠标悬停效果 */
 .blog-toc a:hover {
+    /* 文字颜色变为蓝色 */
     color: #007bff;
+    /* 添加下划线 */
     text-decoration: underline;
 }
