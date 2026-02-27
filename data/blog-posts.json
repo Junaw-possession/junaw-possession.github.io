@@ -16,5 +16,11 @@
         "title": "Windows 操作系统下使用 Cmake 编译 c/c++ 程序流程",
         "description": "Cmake,Windows,编译流程",
         "url": "blog3.md"
+    },
+    {
+        "id": "4",
+        "title": "pddo-pinn程序",
+        "description": "pddo-pinn,物理信息神经网络,程序",
+        "url": "blog4.md"
     }
 ]
