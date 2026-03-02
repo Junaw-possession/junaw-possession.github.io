@@ -22,5 +22,11 @@
         "title": "pddo-pinn程序",
         "description": "pddo-pinn,物理信息神经网络,程序",
         "url": "blog4.md"
+    },
+    {
+        "id": "5",
+        "title": "git的小白教学",
+        "description": "git",
+        "url": "blog5.md"
     }
 ]
