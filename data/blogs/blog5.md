@@ -86,12 +86,17 @@ git push origin v1.0.0
 ```bash
 # 生成SSH密钥
 ssh-keygen -t ed25519 -C "你的邮箱@xxx.com"
+# ed25519是一种新的加密方式，然后一直enter就行
 
 # 查看公钥内容
 # Windows
-type ~/.ssh/id_ed25519.pub
+type .\.ssh\id_ed25519.pub
 # Mac/Linux
 cat ~/.ssh/id_ed25519.pub
+
+# Windows
+# 一键复制公匙
+clip < C:\Users\用户名\.ssh\id_ed25519.pub
 ```
 
 ## 七、常见问题解决
