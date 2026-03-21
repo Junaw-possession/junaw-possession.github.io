@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- 登录界面 -->
+    <div id="login-container" class="login-container">
+        <div class="login-box">
+            <h2>后台管理系统</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">登录</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 主界面 -->
+    <div id="admin-container" class="admin-container" style="display: none;">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>后台管理</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-page="dashboard">
+                        <a href="#" class="nav-link">
+                            <span class="icon">📊</span>
+                            <span class="text">仪表盘</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="blogs">
+                        <a href="#" class="nav-link">
+                            <span class="icon">📝</span>
+                            <span class="text">博客管理</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="settings">
+                        <a href="#" class="nav-link">
+                            <span class="icon">⚙️</span>
+                            <span class="text">设置</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-secondary">退出登录</button>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 仪表盘页面 -->
+            <div id="dashboard-page" class="page active">
+                <h1>仪表盘</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-info">
+                            <h3 id="total-blogs">0</h3>
+                            <p>博客文章</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👁️</div>
+                        <div class="stat-info">
+                            <h3>1,234</h3>
+                            <p>总访问量</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <h3 id="last-update">-</h3>
+                            <p>最后更新</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 博客管理页面 -->
+            <div id="blogs-page" class="page">
+                <div class="page-header">
+                    <h1>博客管理</h1>
+                    <button id="add-blog-btn" class="btn btn-primary">添加新文章</button>
+                </div>
+                <div class="blog-list">
+                    <div id="blog-table-container">
+                        <table class="blog-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>标题</th>
+                                    <th>描述</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="blog-table-body">
+                                <!-- 博客列表将通过JS动态生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设置页面 -->
+            <div id="settings-page" class="page">
+                <h1>设置</h1>
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label for="site-title">网站标题</label>
+                        <input type="text" id="site-title" value="我的博客">
+                    </div>
+                    <div class="form-group">
+                        <label for="site-description">网站描述</label>
+                        <textarea id="site-description" rows="4">分享技术，记录生活</textarea>
+                    </div>
+                    <button class="btn btn-primary">保存设置</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 编辑博客模态框 -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">编辑博客</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="blog-form">
+                <input type="hidden" id="blog-id">
+                <div class="form-group">
+                    <label for="blog-title">标题</label>
+                    <input type="text" id="blog-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="blog-description">描述</label>
+                    <input type="text" id="blog-description" required>
+                </div>
+                <div class="form-group">
+                    <label for="blog-content">内容 (Markdown格式)</label>
+                    <textarea id="blog-content" rows="20" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-btn">取消</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
