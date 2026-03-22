@@ -128,7 +128,10 @@ function navigateToPage(pageName) {
 // 加载博客文章
 async function loadBlogPosts() {
     try {
-        const response = await fetch('data/blog-posts.json');
+        const response = await fetch('/.netlify/functions/get-blogs');
+        if (!response.ok) {
+            throw new Error('获取博客列表失败');
+        }
         blogPosts = await response.json();
         renderBlogList();
     } catch (error) {
@@ -183,7 +186,10 @@ async function editBlog(id) {
 
     try {
         // 加载博客内容
-        const response = await fetch(`data/blogs/${post.url}`);
+        const response = await fetch(`/.netlify/functions/get-blog-content?filename=${post.url}`);
+        if (!response.ok) {
+            throw new Error('获取博客内容失败');
+        }
         const content = await response.text();
 
         document.getElementById('modal-title').textContent = '编辑博客';
@@ -199,22 +205,43 @@ async function editBlog(id) {
 }
 
 // 删除博客
-function deleteBlog(id) {
+async function deleteBlog(id) {
     if (!confirm('确定要删除这篇文章吗？')) return;
 
-    // 从数组中移除
-    blogPosts = blogPosts.filter(p => p.id !== id);
+    try {
+        // 从数组中移除
+        blogPosts = blogPosts.filter(p => p.id !== id);
 
-    // 更新显示
-    renderBlogList();
-    updateDashboard();
+        // 更新博客列表到 GitHub
+        const response = await fetch('/.netlify/functions/update-blogs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                blogPosts: blogPosts,
+                commitMessage: 'Delete blog post'
+            }),
+        });
 
-    // 提示用户
-    alert('文章已删除！请手动更新 data/blog-posts.json 和对应的博客文件。');
+        if (!response.ok) {
+            throw new Error('删除博客失败');
+        }
+
+        // 更新显示
+        renderBlogList();
+        updateDashboard();
+
+        // 提示用户
+        alert('文章已成功删除！');
+    } catch (error) {
+        console.error('删除博客失败:', error);
+        alert('删除博客失败：' + error.message);
+    }
 }
 
 // 处理博客表单提交
-function handleBlogSubmit(e) {
+async function handleBlogSubmit(e) {
     e.preventDefault();
 
     const id = document.getElementById('blog-id').value;
@@ -222,34 +249,90 @@ function handleBlogSubmit(e) {
     const description = document.getElementById('blog-description').value;
     const content = document.getElementById('blog-content').value;
 
-    if (id) {
-        // 编辑现有文章
-        const index = blogPosts.findIndex(p => p.id === id);
-        if (index !== -1) {
-            blogPosts[index].title = title;
-            blogPosts[index].description = description;
+    try {
+        if (id) {
+            // 编辑现有文章
+            const index = blogPosts.findIndex(p => p.id === id);
+            if (index !== -1) {
+                blogPosts[index].title = title;
+                blogPosts[index].description = description;
+
+                // 更新博客内容到 GitHub
+                const contentResponse = await fetch('/.netlify/functions/update-blog-content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        filename: blogPosts[index].url,
+                        content: content,
+                        commitMessage: `Update blog: ${title}`
+                    }),
+                });
+
+                if (!contentResponse.ok) {
+                    throw new Error('更新博客内容失败');
+                }
+            }
+        } else {
+            // 添加新文章
+            const newId = String(Math.max(...blogPosts.map(p => parseInt(p.id))) + 1);
+            const filename = `blog${newId}.md`;
+            const newPost = {
+                id: newId,
+                title: title,
+                description: description,
+                url: filename
+            };
+            blogPosts.push(newPost);
+
+            // 创建新博客文件
+            const contentResponse = await fetch('/.netlify/functions/update-blog-content', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    filename: filename,
+                    content: content,
+                    commitMessage: `Create new blog: ${title}`
+                }),
+            });
+
+            if (!contentResponse.ok) {
+                throw new Error('创建博客内容失败');
+            }
         }
-    } else {
-        // 添加新文章
-        const newId = String(Math.max(...blogPosts.map(p => parseInt(p.id))) + 1);
-        const newPost = {
-            id: newId,
-            title: title,
-            description: description,
-            url: `blog${newId}.md`
-        };
-        blogPosts.push(newPost);
+
+        // 更新博客列表到 GitHub
+        const listResponse = await fetch('/.netlify/functions/update-blogs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                blogPosts: blogPosts,
+                commitMessage: 'Update blog posts list'
+            }),
+        });
+
+        if (!listResponse.ok) {
+            throw new Error('更新博客列表失败');
+        }
+
+        // 更新显示
+        renderBlogList();
+        updateDashboard();
+
+        // 关闭模态框
+        closeModal();
+
+        // 提示用户
+        alert('文章已成功保存到 GitHub！');
+    } catch (error) {
+        console.error('保存博客失败:', error);
+        alert('保存博客失败：' + error.message);
     }
-
-    // 更新显示
-    renderBlogList();
-    updateDashboard();
-
-    // 关闭模态框
-    closeModal();
-
-    // 提示用户
-    alert('文章已保存！请手动更新 data/blog-posts.json 和对应的博客文件。');
 }
 
 // 关闭模态框
